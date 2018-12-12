@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/_preload.unity
+    guid: e732b7019d3accf4e9aab045f6d64b0a
+  - enabled: 1
+    path: Assets/Scenes/MainScreen.unity
+    guid: 609bb44f1ad1e364a9e310f167716fe2
+  - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 36dab20a1345b7940b4e186ec73b523e
+  - enabled: 1
+    path: Assets/Scenes/Character.unity
+    guid: 40e6502409d4f5a41ae5a658bab91813
+  - enabled: 1
+    path: Assets/Scenes/EntornoNaturalHub.unity
+    guid: 2df59e96a4d41c14595416c3728df7a5
+  - enabled: 1
+    path: Assets/Scenes/Story.unity
+    guid: 4022a25a57e6f6c4487cac30c7efffb4
+  - enabled: 1
+    path: Assets/Scenes/ActivityHub.unity
+    guid: e6cfbc8cd6d21bc49bd5d307b450ab81
+  - enabled: 1
+    path: Assets/Scenes/Activity1.unity
+    guid: b1781f6adbdc639458c0d953d83bb630
+  - enabled: 1
+    path: Assets/Scenes/Activity2.unity
+    guid: 66e1b98aa40680644ab278aad7b436e1
+  - enabled: 1
+    path: Assets/Scenes/Activity3.unity
+    guid: 60a275bdfe1633c46ba205e752a565b5
+  - enabled: 1
+    path: Assets/Scenes/Activity4.unity
+    guid: 033967f96d6e9814d98f6614258642dc
