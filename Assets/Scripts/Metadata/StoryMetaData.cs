@@ -13,7 +13,7 @@ public class StoryMetaData : GameMetaData
     public StoryMetaData(string id_registro, string duracion) : base (id_registro)
     {
         tipo = "historia";
-        descripcion_historia = "Oscar le explica a los niños la diferencia entre seres vivos y no vivos";
+        descripcion_historia = "Oscar le explica a los niños la diferencia entre animales domésticos, perjudiciales y salvajes";
         this.duracion = duracion;
     }
 }

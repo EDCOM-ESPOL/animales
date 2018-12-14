@@ -34,7 +34,7 @@ public class ActivityController : MonoBehaviour {
         //AudioManager.Instance.PlayMusic("BGM");
         activityName = GameStateManager.Instance.getCurrentSceneName();
 
-        levelData = new LevelMetaData(SessionManager.Instance.nombre_jugador, "Seres"+ activityName);
+        levelData = new LevelMetaData(SessionManager.Instance.nombre_jugador, "Animales-"+ activityName);
 
         spritesAlreadyInUse = new ArrayList();
 

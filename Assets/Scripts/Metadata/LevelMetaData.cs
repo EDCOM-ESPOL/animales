@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class LevelMetaData : GameMetaData
 {
-    public string nombre_nivel;         //":"Seres-Nivel-1",
+    public string nombre_nivel;         //":"Animales-Nivel-1",
     public string descripcion_nivel;    //":"Sigue las instrucciones que te da la Loly",
     public string correctas;            //básicamente cuantos subniveles hay
     public string incorrectas;          //

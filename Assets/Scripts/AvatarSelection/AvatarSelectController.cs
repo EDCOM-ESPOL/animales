@@ -36,16 +36,18 @@ public class AvatarSelectController : UnitySingleton<AvatarSelectController> {
 
     public void ClickConfirmAvatar()
     {
+        AudioManager.Instance.PlaySFX("TinyButtonPush");
+
         if (input.text == "")
         {
-            AudioManager.Instance.PlayVoice("LoliOuh");
+            SessionManager.Instance.SetPlayerInfo(selectedAvatar.sprite.name, "Default");
+            //AudioManager.Instance.PlayVoice("LoliOuh");
         }
         else
         {
-            AudioManager.Instance.PlaySFX("TinyButtonPush");
             SessionManager.Instance.SetPlayerInfo(selectedAvatar.sprite.name, input.text);
-            GameStateManager.Instance.LoadScene("EntornoNaturalHub");
         }
-        
+
+        GameStateManager.Instance.LoadScene("EntornoNaturalHub");
     }
 }

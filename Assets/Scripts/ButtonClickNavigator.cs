@@ -74,7 +74,7 @@ public class ButtonClickNavigator : MonoBehaviour {
     void loadAboutURL()
     {
         PlayDefaultButtonSound();
-        Application.OpenURL("http://midiapi.espol.edu.ec");
+        Application.OpenURL("http://midi.espol.edu.ec");
     }
 
 
