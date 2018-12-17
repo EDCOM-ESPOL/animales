@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Animal {
+[CreateAssetMenu(fileName ="New Animal", menuName ="Animal")]
+public class Animal : ScriptableObject{
 
-    public string animalName;           //Caballo
-    public Sprite animalSprite;         //caballo.png
-    public char utility;                //u = útil, s = salvaje, p = perjudicial
-    public char type;                   //t = terrestre, m = marino
-    public string skinType;             //escamas, piel, plumas
-    public string movement;             //arrastra, camina, nada, salta, trepa, vuela
+    public string nombre;
+    public Sprite sprite;
 
+    public enum utility {Domestic,Harmful,Wild};
+    public utility utilidad;
+
+    public enum type {Land, Sea};
+    public type tipo;
+
+    public enum skinCover {Fur, Scale, Feather };
+    public skinCover cubiertos;
+
+    public enum movement {Climb, Crawl, Fly, Jump, Swim, Walk };
+    public movement movimiento;
+
+    
     
 
 }
