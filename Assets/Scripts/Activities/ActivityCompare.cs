@@ -34,6 +34,7 @@ public class ActivityCompare : MonoBehaviour {
 
     public LevelMetaData levelData;
 
+    public Text txtShowOrder;
 
     // Use this for initialization
     void Start()
@@ -49,8 +50,10 @@ public class ActivityCompare : MonoBehaviour {
 
         print(AnimalManager.Instance.FilterByUtility(0).Count);
 
-        Spawn(0);
-        Spawn(1);
+        Spawn();
+
+        txtShowOrder.text = "Orden: " + order.ToString() + " / Respuesta: " + answer.ToString();
+        
 
     }
 
@@ -58,8 +61,8 @@ public class ActivityCompare : MonoBehaviour {
     {
 
         //byte i = System.Convert.ToByte(Random.Range(0, 4));
-        //order = 0;
-        //byte a = 0;         //Número de opciones en cada clasificación
+        order = 1;
+        byte a = 3;         //Número de opciones en cada clasificación
 
         //switch (order)
         //{
@@ -86,7 +89,7 @@ public class ActivityCompare : MonoBehaviour {
         //        break;
         //}
 
-        //answer = System.Convert.ToByte(Random.Range(0, a));
+        answer = System.Convert.ToByte(Random.Range(0, a));
 
         //AudioManager.Instance.PlayVoice(orderSoundName);
     }
@@ -111,27 +114,32 @@ public class ActivityCompare : MonoBehaviour {
         }
     }
 
-    public void Spawn(int u)
+    public void Spawn()
     {
+        List<Animal> newAnimals = new List<Animal>();
+        
 
-        Animal animal = AnimalManager.Instance.getRandomAnimalByUtility(u);
-        byte modo;
-        modo = System.Convert.ToByte(Random.Range(0, 3));
+        bool modo = System.Convert.ToBoolean(Random.Range(0, 2));
 
-
-        GameObject newAnimalOption = Instantiate(animalOptionPrefab);
-        newAnimalOption.GetComponent<AnimalOptionDisplay>().animal = animal;
-
-
-        newAnimalOption.name = animal.name;
-        //newAnimalOption.transform.GetChild(0).GetComponent<Image>().sprite = beingSprite;
+        
+        newAnimals.Add(AnimalManager.Instance.GetRandomAnimalByUtility(answer, modo));
+        newAnimals.Add(AnimalManager.Instance.GetRandomAnimalByUtility(answer, !modo));
 
 
-        newAnimalOption.transform.SetParent(optionContainer.transform);
+        foreach (Animal animal in newAnimals)
+        {
+            GameObject newAnimalOption = Instantiate(animalOptionPrefab);
+            newAnimalOption.GetComponent<AnimalOptionDisplay>().animal = animal;
+            newAnimalOption.name = animal.name;
+            //newAnimalOption.transform.GetChild(0).GetComponent<Image>().sprite = beingSprite;
 
-        //newAnimalOption.transform.localPosition = new Vector3(0f, 2f, 0f);
-        newAnimalOption.transform.localScale = new Vector3(1f, 1f, 1f);
 
+            newAnimalOption.transform.SetParent(optionContainer.transform);
+
+            newAnimalOption.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        
+        
     }
 
 
@@ -157,7 +165,7 @@ public class ActivityCompare : MonoBehaviour {
 
         activity3Flag = 0;
         subLevelFinished = false;
-        Spawn(0);
+        Spawn();
 
         EnableAllButtons();
     }

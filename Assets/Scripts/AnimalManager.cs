@@ -5,6 +5,14 @@ using UnityEngine;
 public class AnimalManager: UnitySingleton<AnimalManager>{
 
     public Animal[] animalList;
+    public List<Animal> alreadyInUse;
+
+
+    // Use this for initialization
+    void Start()
+    {
+        alreadyInUse = new List<Animal>();
+    }
 
 
     public List<Animal> FilterByType(int t)
@@ -74,20 +82,48 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
         return filtered;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
+    
 	
-    public Animal getRandomAnimalByUtility(int u)
+    public Animal GetRandomAnimalByUtility(int utility, bool mode)
     {
-        List<Animal> aux = FilterByUtility(u);
-        
-        Animal anim = aux[Random.Range(0, aux.Count)];
-        print(anim.name);
-        return anim;
+        List<Animal> aux = new List<Animal>();
+        Animal animal;
 
-        //0,1,2,3,4 Lenght = / Count = 
+        if (mode)
+        {
+            aux = FilterByUtility(utility);
+            //animal = aux[Random.Range(0, aux.Count)];
+
+        }
+        else
+        {
+            byte a = System.Convert.ToByte(Random.Range(0, 3));
+            while (a == utility)
+            {
+                a = System.Convert.ToByte(Random.Range(0, 3));
+            }
+
+            aux = FilterByUtility(a);
+                                    
+        }
+
+        animal = aux[Random.Range(0, aux.Count)];
+        return animal;
     }
-	
+
+
+    public bool VerifyAnimal(Animal animal)
+    {
+
+        foreach (Animal item in alreadyInUse)
+        {
+            if (item == animal)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
