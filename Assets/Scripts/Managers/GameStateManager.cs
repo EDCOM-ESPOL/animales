@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 
 public class GameStateManager : UnitySingleton<GameStateManager>
 {
+    public bool netService;
+
     private const string SERVER_URL = "http://midiapi.espol.edu.ec";
     //private const string SERVER_URL = "http://hidden-wildwood-12729.herokuapp.com";
     private const string API_URL = SERVER_URL + "/api/v1/entrance/AlmacenarDatosController";
@@ -22,11 +24,16 @@ public class GameStateManager : UnitySingleton<GameStateManager>
     // Use this for initialization
     IEnumerator Start()
     {
-        print(API_URL);
-        if (CheckNet()) yield return StartCoroutine(CheckServer());
-        print(Application.persistentDataPath);
-        ReadLocalFile();
-        StartCoroutine(SyncJsonData());
+        netService = false;
+
+        if (netService)
+        {
+            print(API_URL);
+            if (CheckNet()) yield return StartCoroutine(CheckServer());
+            print(Application.persistentDataPath);
+            ReadLocalFile();
+            StartCoroutine(SyncJsonData());
+        }
     }
 
     // Update is called once per frame
@@ -125,62 +132,64 @@ public class GameStateManager : UnitySingleton<GameStateManager>
 
     public IEnumerator SyncJsonData()
     {
-        //List<string> jsonList = ReadLocalFile();
-        //Debug.Log("New JSON: " + json);
-        PrintJsonList();
-        yield return CheckServer();
-
-        if (CheckNet() && IsConnectedToServer)
+        if (netService)
         {
-            
-            Debug.Log("READY TO UPLOAD");
-            List<string> sendedJsonItems = new List<string>();
 
-            foreach (string jsonItem in jsonList)
+            PrintJsonList();
+            yield return CheckServer();
+
+            if (CheckNet() && IsConnectedToServer)
             {
 
-                Dictionary<string, string> postHeader = new Dictionary<string, string>
-                {
-                    { "Content-Type", "application/json" }
-                };
-                byte[] body = Encoding.UTF8.GetBytes(jsonItem);
-                WWW www = new WWW(API_URL, body, postHeader);
-                Debug.Log("CONNECTING TO SERVER...");
-                yield return StartCoroutine("StartUpload", www);
+                Debug.Log("READY TO UPLOAD");
+                List<string> sendedJsonItems = new List<string>();
 
-                if (www.error != null)
+                foreach (string jsonItem in jsonList)
                 {
-                    Debug.Log("THIS IS AN ERROR: " + www.error);
-                    IsConnectedToServer = false;
-                    break;
+
+                    Dictionary<string, string> postHeader = new Dictionary<string, string>
+                    {
+                        { "Content-Type", "application/json" }
+                    };
+                    byte[] body = Encoding.UTF8.GetBytes(jsonItem);
+                    WWW www = new WWW(API_URL, body, postHeader);
+                    Debug.Log("CONNECTING TO SERVER...");
+                    yield return StartCoroutine("StartUpload", www);
+
+                    if (www.error != null)
+                    {
+                        Debug.Log("THIS IS AN ERROR: " + www.error);
+                        IsConnectedToServer = false;
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("Data Submitted");
+                        sendedJsonItems.Add(jsonItem);
+                    }
                 }
-                else
+
+                print(sendedJsonItems.Count + " FILE(S) UPLOADED");
+
+                foreach (string sended in sendedJsonItems)
                 {
-                    Debug.Log("Data Submitted");
-                    sendedJsonItems.Add(jsonItem);
+                    jsonList.Remove(sended);
                 }
+
+                sendedJsonItems.Clear();
+
             }
-
-            print(sendedJsonItems.Count + " FILE(S) UPLOADED");
-
-            foreach (string sended in sendedJsonItems)
+            else
             {
-                jsonList.Remove(sended);
+                Debug.Log("CONNECTION NOT ESTABLISHED");
             }
 
-            sendedJsonItems.Clear();
+            print(jsonList.Count + " JSON(S) NOT UPLOADED");
+
+
+            SaveLocal();
 
         }
-        else
-        {
-            Debug.Log("CONNECTION NOT ESTABLISHED");
-        }
-
-        print(jsonList.Count + " JSON(S) NOT UPLOADED");
-        
-
-        SaveLocal();
-
     }
 
     //bool UploadItem(string item)

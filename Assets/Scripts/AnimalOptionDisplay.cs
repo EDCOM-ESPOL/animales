@@ -9,8 +9,10 @@ public class AnimalOptionDisplay : MonoBehaviour {
 
     public Image image;
 
-	// Use this for initialization
-	void Start () {
+    public bool selected;
+
+    // Use this for initialization
+    void Start () {
         image.sprite = animal.sprite;
 	}
 	
