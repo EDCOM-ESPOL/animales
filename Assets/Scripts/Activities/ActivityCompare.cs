@@ -52,9 +52,6 @@ public class ActivityCompare : MonoBehaviour {
 
         Spawn();
 
-        txtShowOrder.text = "Orden: " + order.ToString() + " / Respuesta: " + answer.ToString();
-        
-
     }
 
     public void ResetOrder()
@@ -116,6 +113,8 @@ public class ActivityCompare : MonoBehaviour {
 
     public void Spawn()
     {
+        txtShowOrder.text = "Puntaje: " + score+ " / Orden: Utilidad" + " / Respuesta: " + ((Animal.utility)answer).ToString();
+
         List<Animal> newAnimals = new List<Animal>();
         
 
@@ -130,11 +129,36 @@ public class ActivityCompare : MonoBehaviour {
         {
             GameObject newAnimalOption = Instantiate(animalOptionPrefab);
             newAnimalOption.GetComponent<AnimalOptionDisplay>().animal = animal;
+
+            ColorBlock oldCB = newAnimalOption.GetComponent<Button>().colors;
+
+            print(animal.utilidad);
+            print("RESPUESTA: " + (Animal.utility)answer);
+
+
+            if (animal.utilidad.Equals((Animal.utility)answer))
+            {
+                print("ANIMAL: recibio color 1 (pressed)");
+
+                oldCB.pressedColor = myColors[1];
+            }
+            else
+            {
+                print("ANIMAL: recibio color 2 (pressed)");
+                oldCB.pressedColor = myColors[2];
+            }
+
+            oldCB.disabledColor = myColors[0];
+
+            newAnimalOption.GetComponent<Button>().colors = oldCB;
+
             newAnimalOption.name = animal.name;
             //newAnimalOption.transform.GetChild(0).GetComponent<Image>().sprite = beingSprite;
 
 
             newAnimalOption.transform.SetParent(optionContainer.transform);
+
+            newAnimalOption.GetComponent<Button>().onClick.AddListener(delegate { EvaluateOnClick(newAnimalOption.GetComponent<Button>()); });
 
             newAnimalOption.transform.localScale = new Vector3(1f, 1f, 1f);
         }
@@ -145,23 +169,23 @@ public class ActivityCompare : MonoBehaviour {
 
     public void ResPawn()
     {
-        spritesAlreadyInUse.Clear();
+        AnimalManager.Instance.alreadyInUse.Clear();
 
         foreach (Transform child in optionContainer.transform)
         {
             Destroy(child.gameObject);
         }
 
-        if (activityName == "Activity2")
-        {
-            ColorBlock oldCB;
-            GameObject ans = GameObject.Find("Answer");
-            oldCB = ans.GetComponent<Button>().colors;
-            oldCB.disabledColor = myColors[0];
-            ans.GetComponent<Button>().colors = oldCB;
+        //if (activityName == "Activity2")
+        //{
+        //    ColorBlock oldCB;
+        //    GameObject ans = GameObject.Find("Answer");
+        //    oldCB = ans.GetComponent<Button>().colors;
+        //    oldCB.disabledColor = myColors[0];
+        //    ans.GetComponent<Button>().colors = oldCB;
 
-            ans.transform.GetChild(0).GetComponent<Image>().sprite = null;
-        }
+        //    ans.transform.GetChild(0).GetComponent<Image>().sprite = null;
+        //}
 
         activity3Flag = 0;
         subLevelFinished = false;
@@ -178,10 +202,11 @@ public class ActivityCompare : MonoBehaviour {
 
 
 
-    public void SpawnAnimal()
+    public void SpawnAnimal(bool isAlive)
     {
         GameObject newAnimalOption = Instantiate(animalOptionPrefab);
         //newAnimalOption.GetComponent<AnimalOptionDisplay>().animal.tipo = isAlive;
+
         ColorBlock oldCB = newAnimalOption.GetComponent<Button>().colors;
 
         if (activityName != "Activity4")
@@ -275,11 +300,14 @@ public class ActivityCompare : MonoBehaviour {
 
     public void EvaluateOnClick(Button buttonClicked)
     {
+        print("CLICK");
         //DisableAllButtons();
         ColorBlock oldCB;
 
-        if (buttonClicked.GetComponent<AnimalOptionDisplay>().animal.utilidad.Equals(this.GetOrder()))
+        if (buttonClicked.GetComponent<AnimalOptionDisplay>().animal.utilidad.Equals((Animal.utility)answer))
         {
+            print("CORRECTO");
+
             oldCB = buttonClicked.colors;
             oldCB.disabledColor = myColors[1];
             buttonClicked.colors = oldCB;
@@ -287,68 +315,13 @@ public class ActivityCompare : MonoBehaviour {
             int[] scores = SessionManager.Instance.getPlayerScore();
             //bool[] levels = SessionManager.Instance.getLevels();
 
-            switch (activityName)
-            {
-                case "Activity1":
-
-
+            
                     scores[0] = scores[0] + 1;
                     score++;
                     Debug.Log(score);
                     subLevelFinished = true;
 
-                    break;
-                case "Activity2":
-                    oldCB = GameObject.Find("Answer").GetComponent<Button>().colors;
-                    oldCB.disabledColor = myColors[1];
-
-                    GameObject.Find("Answer").GetComponent<Button>().colors = oldCB;
-
-                    GameObject.Find("Answer").transform.GetChild(0).GetComponent<Image>().sprite = buttonClicked.transform.GetChild(0).GetComponent<Image>().sprite;
-
-                    scores[1] = scores[1] + 1;
-                    score++;
-                    subLevelFinished = true;
-
-                    break;
-                case "Activity3":
-                    oldCB = buttonClicked.colors;
-
-                    if (buttonClicked.GetComponent<ActivityOption>().selected)
-                    {
-                        oldCB.normalColor = myColors[0];
-                        oldCB.highlightedColor = myColors[0];
-                        oldCB.disabledColor = myColors[0];
-                        buttonClicked.colors = oldCB;
-                        buttonClicked.GetComponent<ActivityOption>().selected = false;
-                        activity3Flag = activity3Flag - 1;
-                    }
-                    else
-                    {
-                        oldCB.normalColor = myColors[1];
-                        oldCB.highlightedColor = myColors[1];
-                        oldCB.disabledColor = myColors[1];
-                        buttonClicked.colors = oldCB;
-                        buttonClicked.GetComponent<ActivityOption>().selected = true;
-                        activity3Flag++;
-                    }
-
-
-                    Debug.Log(activity3Flag);
-
-                    if (activity3Flag >= 2)
-                    {
-                        scores[2] = scores[2] + 1;
-                        score++;
-                        subLevelFinished = true;
-                    }
-
-                    break;
-
-                default:
-                    break;
-            }
-
+            
 
             if (subLevelFinished)
             {
@@ -362,6 +335,8 @@ public class ActivityCompare : MonoBehaviour {
         }
         else
         {
+            print("INCORRECTO");
+
             oldCB = buttonClicked.colors;
             oldCB.disabledColor = myColors[2];
             buttonClicked.colors = oldCB;
@@ -414,7 +389,7 @@ public class ActivityCompare : MonoBehaviour {
 
         foreach (Button button in optionContainer.GetComponentsInChildren<Button>())
         {
-            button.GetComponent<ActivityOption>().selected = false;
+            button.GetComponent<AnimalOptionDisplay>().selected = false;
 
             oldCB = button.colors;
             oldCB.normalColor = myColors[0];
