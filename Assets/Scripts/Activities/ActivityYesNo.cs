@@ -154,28 +154,9 @@ public class ActivityYesNo : MonoBehaviour {
             print(newAnimal.utilidad);
             print("RESPUESTA: " + (Animal.utility)answer);
 
-//                oldCB.pressedColor = myColors[2];
-  //               oldCB.disabledColor = myColors[0];
-
-        //    if (animal.utilidad.Equals((Animal.utility)answer))
-          //  {
-            //    print("ANIMAL: recibio color 1 (pressed)");
-//
-  //              oldCB.pressedColor = myColors[1];
-    //        }
-      //      else
-        //    {
-          //      print("ANIMAL: recibio color 2 (pressed)");
-//                oldCB.pressedColor = myColors[2];
-            //}
-
-//            oldCB.disabledColor = myColors[0];
-        
-            //newAnimalOption.GetComponent<Button>().colors = oldCB;
             newAnimalOption.GetComponent<Button>().interactable=false;
 
             newAnimalOption.name = newAnimal.name;
-            //newAnimalOption.transform.GetChild(0).GetComponent<Image>().sprite = beingSprite;
 
 
             newAnimalOption.transform.SetParent(optionContainer.transform);
@@ -201,16 +182,7 @@ public class ActivityYesNo : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
-        //if (activityName == "Activity2")
-        //{
-        //    ColorBlock oldCB;
-        //    GameObject ans = GameObject.Find("Answer");
-        //    oldCB = ans.GetComponent<Button>().colors;
-        //    oldCB.disabledColor = myColors[0];
-        //    ans.GetComponent<Button>().colors = oldCB;
-
-        //    ans.transform.GetChild(0).GetComponent<Image>().sprite = null;
-        //}
+       
 
        
         subLevelFinished = false;
@@ -256,31 +228,10 @@ public class ActivityYesNo : MonoBehaviour {
     {
         DisableAllButtons();
         
-        
-// //Domestic Harmful  Wild
-//       switch (answer)
-//       {
-//           case 0:
-//               answerr="Domestic";
-//               break;
-//           case 1:
-//                 answerr="Harmful";
-//               break;
-//           case 2:
-//               answerr="Wild";
-//               break;
-//       }
-        
-        //DisableAllButtons();
+
         
          option = options.transform.GetChild(0);
-        
-        // ColorBlock oldCB = option.GetComponent<Button>().colors;
-        // print(oldCB.pressedColor);
-        // oldCB.pressedColor=Color.green;
-        // print(oldCB.pressedColor);
-
-        // print(option.GetComponent<Button>().name);
+    
         
         print("CLICK");
         print(answer);
@@ -288,27 +239,20 @@ public class ActivityYesNo : MonoBehaviour {
         print("Animal de la foto: "+(newAnimal.utilidad).Equals((Animal.utility)answer));
         print("Animal pregunta: "+answer);
        print("Botón presionado: "+buttonClicked.GetComponent<Button>().name);
-//       print(buttonClicked.GetComponent<AnimalOptionDisplay>().animal.utilidad);
         print("CLICK");
 
          
          
-       // bool esLoMismo = (newAnimal.utilidad)answer;
         
         bool botonPresionado =buttonClicked.GetComponent<Button>().name.Equals( "YesButton" );
 
-//        print("El tipo de la foto es igual al tipo de la pregunta: "+esLoMismo);
         print("Presionó el botón de que yes "+botonPresionado);
 
-//buttonClicked.GetComponent<AnimalOptionDisplay>().animal.utilidad.Equals((Animal.utility)answer);
 
         if (((newAnimal.utilidad).Equals((Animal.utility)answer) && buttonClicked.GetComponent<Button>().name.Equals("YesButton")) || (!(newAnimal.utilidad).Equals((Animal.utility)answer) && buttonClicked.GetComponent<Button>().name.Equals("NoButton")))
         {
             print("CORRECTO");
-//            oldCB.pressedColor = myColors[1];
-            //oldCB.normalColor=Color.blue;
-            //oldCB.highlightedColor=Color.blue;
-           // oldCB.pressedColor=Color.blue;
+
            oldCB.disabledColor=Color.green;
            
             
@@ -322,7 +266,6 @@ public class ActivityYesNo : MonoBehaviour {
                    
                     SessionManager.Instance.setPlayerScore(scores);
                              
-//                oldCB.disabledColor = myColors[1];
 
                 
                 StartCoroutine(Win());
@@ -335,9 +278,7 @@ public class ActivityYesNo : MonoBehaviour {
             print("INCORRECTO");
             print(buttonClicked.GetComponent<Button>().name);
             oldCB.disabledColor=Color.red;
-//            oldCB.pressedColor = myColors[2];
-            
-            //              oldCB.disabledColor = myColors[2];
+
          
             StartCoroutine(Wrong());
             
@@ -399,16 +340,7 @@ public class ActivityYesNo : MonoBehaviour {
         option.GetComponent<Button>().colors = oldCB;
         EnableAllButtons();
 
-        // foreach (Button button in optionContainer.GetComponentsInChildren<Button>())
-        // {
-        //   //  button.GetComponent<AnimalOptionDisplay>().selected = false;
-
-        //     oldCB = button.colors;
-        //     oldCB.normalColor = myColors[0];
-        //     oldCB.highlightedColor = myColors[0];
-        //     oldCB.disabledColor = myColors[0];
-        //     button.colors = oldCB;
-        // }
+  
 
        
 
