@@ -67,34 +67,9 @@ public class ActivityYesNo : MonoBehaviour {
     public void ResetOrder()
     {
 
-        //byte i = System.Convert.ToByte(Random.Range(0, 4));
         order = 1;
         byte a = 3;         //Número de opciones en cada clasificación
 
-        //switch (order)
-        //{
-        //    case 0:
-        //        //Type
-        //        a = 2;
-
-
-        //        break;
-        //    case 1:
-        //        //Utility
-        //        a = 3;
-        //        break;
-        //    case 2:
-        //        //SkinCover
-        //        a = 3;
-        //        break;
-        //    case 3:
-        //        //Movement
-        //        a = 6;
-        //        break;
-
-        //    default:
-        //        break;
-        //}
 
         answer = System.Convert.ToByte(Random.Range(0, a));
 
@@ -230,7 +205,7 @@ public class ActivityYesNo : MonoBehaviour {
         
 
         
-         option = options.transform.GetChild(0);
+        option = options.transform.GetChild(0);
     
         
         print("CLICK");
@@ -238,7 +213,7 @@ public class ActivityYesNo : MonoBehaviour {
         
         print("Animal de la foto: "+(newAnimal.utilidad).Equals((Animal.utility)answer));
         print("Animal pregunta: "+answer);
-       print("Botón presionado: "+buttonClicked.GetComponent<Button>().name);
+        print("Botón presionado: "+buttonClicked.GetComponent<Button>().name);
         print("CLICK");
 
          
@@ -256,15 +231,15 @@ public class ActivityYesNo : MonoBehaviour {
            oldCB.disabledColor=Color.green;
            
             
-            int[] scores = SessionManager.Instance.getPlayerScore();
+            //int[] scores = SessionManager.Instance.getPlayerScore();
             //bool[] levels = SessionManager.Instance.getLevels();
 
             
-                    scores[0] = scores[0] + 1;
+                    //scores[0] = scores[0] + 1;
                     score++;
                     Debug.Log(score);
                    
-                    SessionManager.Instance.setPlayerScore(scores);
+                    //SessionManager.Instance.setPlayerScore(scores);
                              
 
                 

@@ -19,7 +19,7 @@ public class SessionManager : UnitySingleton<SessionManager> {
     public string nombre_juego = "En mi Entorno Natural";
 
 
-    private int[] playerScore = { 0, 0, 0, 0 };
+    //private int[] playerScore = { 0, 0, 0, 0 };
 
     //    {
 
@@ -38,15 +38,15 @@ public class SessionManager : UnitySingleton<SessionManager> {
 
 
 
-    public int[] getPlayerScore()
-    {
-        return this.playerScore;
-    }
+    //public int[] getPlayerScore()
+    //{
+    //    return this.playerScore;
+    //}
 
-    public void setPlayerScore(int[] score)
-    {
-        this.playerScore = score;
-    }
+    //public void setPlayerScore(int[] score)
+    //{
+    //    this.playerScore = score;
+    //}
 
     public void SetPlayerInfo(string avatar, string nombre_jugador)
     {

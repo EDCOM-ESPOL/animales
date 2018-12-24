@@ -82,8 +82,33 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
         return filtered;
     }
 
-    
-	
+
+    public Animal GetRandomAnimalByType(int type, bool mode)
+    {
+        List<Animal> aux = new List<Animal>();
+        Animal animal;
+
+        if (mode)
+        {
+            aux = FilterByType(type);
+        }
+        else
+        {
+            byte a;
+
+            do
+            {
+                a = System.Convert.ToByte(Random.Range(0, 2));
+            } while (a == type);
+
+            aux = FilterByType(a);            
+        }
+
+        animal = aux[Random.Range(0, aux.Count)];
+        return animal;
+    }
+
+
     public Animal GetRandomAnimalByUtility(int utility, bool mode)
     {
         List<Animal> aux = new List<Animal>();
@@ -92,19 +117,68 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
         if (mode)
         {
             aux = FilterByUtility(utility);
-            //animal = aux[Random.Range(0, aux.Count)];
-
         }
         else
         {
-            byte a = System.Convert.ToByte(Random.Range(0, 3));
-            while (a == utility)
+            byte a;
+            do
             {
                 a = System.Convert.ToByte(Random.Range(0, 3));
-            }
-
+            } while (a == utility);
+            
             aux = FilterByUtility(a);
                                     
+        }
+
+        animal = aux[Random.Range(0, aux.Count)];
+        return animal;
+    }
+
+
+    public Animal GetRandomAnimalBySkinCover(int skinCover, bool mode)
+    {
+        List<Animal> aux = new List<Animal>();
+        Animal animal;
+
+        if (mode)
+        {
+            aux = FilterByType(skinCover);
+        }
+        else
+        {
+            byte a;
+
+            do
+            {
+                a = System.Convert.ToByte(Random.Range(0, 3));
+            } while (a == skinCover);
+
+            aux = FilterByType(a);
+        }
+
+        animal = aux[Random.Range(0, aux.Count)];
+        return animal;
+    }
+
+    public Animal GetRandomAnimalByMovement(int move, bool mode)
+    {
+        List<Animal> aux = new List<Animal>();
+        Animal animal;
+
+        if (mode)
+        {
+            aux = FilterByType(move);
+        }
+        else
+        {
+            byte a;
+
+            do
+            {
+                a = System.Convert.ToByte(Random.Range(0, 6));
+            } while (a == move);
+
+            aux = FilterByType(a);
         }
 
         animal = aux[Random.Range(0, aux.Count)];

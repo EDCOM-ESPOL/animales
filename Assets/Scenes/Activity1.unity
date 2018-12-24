@@ -188,7 +188,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 325928447}
+      - m_Target: {fileID: 0}
         m_MethodName: ReplayOrder
         m_Mode: 1
         m_Arguments:
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 325928447}
+      - m_Target: {fileID: 325928449}
         m_MethodName: EndLevel
         m_Mode: 5
         m_Arguments:
@@ -537,7 +537,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 325928448}
-  - component: {fileID: 325928447}
   - component: {fileID: 325928449}
   m_Layer: 5
   m_Name: ActivityController
@@ -546,72 +545,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &325928447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 325928446}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f42e2b5b3b6ada4abc2d71976ade453, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activityOptionPrefab: {fileID: 1609186760044732, guid: ec50f91ae51789743b19b3b668201d9f,
-    type: 2}
-  options: {fileID: 542041295}
-  nonLivingSprites:
-  - {fileID: 21300000, guid: 81787bad3efd37d43ae4fffa029835ce, type: 3}
-  - {fileID: 21300000, guid: add63378de22f1240974295ac41af4bd, type: 3}
-  - {fileID: 21300000, guid: f01dc9e121476f143865e59bb74b43c5, type: 3}
-  - {fileID: 21300000, guid: 4188aa09fe8ef0846a9ef53d5fbd63ef, type: 3}
-  - {fileID: 21300000, guid: 989b1b52d9d8afc47b8e85474f4ad237, type: 3}
-  - {fileID: 21300000, guid: 0b4a2c8b07a17784cb8f169c33e39216, type: 3}
-  - {fileID: 21300000, guid: 5d6b04f651d918a49bbbe1bab44b4bd1, type: 3}
-  - {fileID: 21300000, guid: bb84e39905d976e4f9b290afc01468df, type: 3}
-  - {fileID: 21300000, guid: faeef76a28b67cb4b8c0681930b8c6d2, type: 3}
-  - {fileID: 21300000, guid: 9a93b7be62603eb4f87fa2d25cc60b86, type: 3}
-  - {fileID: 21300000, guid: 7473821e0fb5c28479b2bed5eca7c30b, type: 3}
-  - {fileID: 21300000, guid: c7f60f3bea7242d4392183449ab04e17, type: 3}
-  - {fileID: 21300000, guid: 1e4475a90a214354eb9e6c3be6f9efc6, type: 3}
-  - {fileID: 21300000, guid: f161bce994652834ea781e51eb6493a5, type: 3}
-  - {fileID: 21300000, guid: de15c2029580fd44b8d2403a68444be6, type: 3}
-  livingSprites:
-  - {fileID: 21300000, guid: 039dfaf75a40b3c49b974559c01eead5, type: 3}
-  - {fileID: 21300000, guid: 10b7f81524206014e9da0e9d1fbca371, type: 3}
-  - {fileID: 21300000, guid: 233615cb375a50d4d8725972ff6a6aa6, type: 3}
-  - {fileID: 21300000, guid: 7cf894ee39e4fb2448ed779c74a33f94, type: 3}
-  - {fileID: 21300000, guid: 6f4bdcf99db4ab844966e3e110cad04b, type: 3}
-  - {fileID: 21300000, guid: ba8ce9700bcef5747aa9630130bb1495, type: 3}
-  - {fileID: 21300000, guid: fdf39461822816842a041cb9d429034b, type: 3}
-  - {fileID: 21300000, guid: d11e6295663a46c4198a54d61eeb9df1, type: 3}
-  - {fileID: 21300000, guid: 94f773640e1928d4898b79d961efd2b4, type: 3}
-  - {fileID: 21300000, guid: c9a135391bb4b8a41910d8439e5f67cf, type: 3}
-  - {fileID: 21300000, guid: 0f139a29d7914df4c90a8ef625adec68, type: 3}
-  - {fileID: 21300000, guid: edc64db771e48a8418d1b45c11186c16, type: 3}
-  - {fileID: 21300000, guid: 8a8e761d22944704f8978e6e73ffa657, type: 3}
-  - {fileID: 21300000, guid: 8129f131f06201e4a83713f368cfe4db, type: 3}
-  - {fileID: 21300000, guid: 1c9e7a08e17812e4e882cce7b3aea033, type: 3}
-  myColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0.04705883, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  levelData:
-    tipo: 
-    id_registro: 
-    nombre_juego: 
-    descripcion_juego: 
-    nombre_capitulo: 
-    descripcion_capitulo: 
-    nombre_historia: 
-    fecha_inicio: 
-    fecha_fin: 
-    tiempo_juego: 
-    estado: 
-    nombre_nivel: 
-    descripcion_nivel: 
-    correctas: 
-    incorrectas: 
 --- !u!224 &325928448
 RectTransform:
   m_ObjectHideFlags: 0
@@ -644,8 +577,7 @@ MonoBehaviour:
   animalOptionPrefab: {fileID: 1243532345882226, guid: 4c116b9b7cdb6754583257010e18060e,
     type: 2}
   optionContainer: {fileID: 542041295}
-  nonLivingSprites: []
-  livingSprites: []
+  txtShowOrder: {fileID: 608736063}
   myColors:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0, g: 1, b: 0.04705883, a: 1}
@@ -666,7 +598,6 @@ MonoBehaviour:
     descripcion_nivel: 
     correctas: 
     incorrectas: 
-  txtShowOrder: {fileID: 608736063}
 --- !u!1 &542041295
 GameObject:
   m_ObjectHideFlags: 0
