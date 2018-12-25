@@ -20,9 +20,11 @@ public abstract class ActivityController : MonoBehaviour {
     protected bool subLevelFinished = false;
     protected ArrayList spritesAlreadyInUse;
 
-    protected int order;             //0 = Terrestre/Marino
-    protected int answer;            //
-    protected string orderSoundName;  //el nombre del audio que dará la orden en esta actividad
+    protected int order;                //0
+    protected string orderString;       //Type
+    protected int answer;               //0
+    protected string answerString;      //Land
+    protected string orderSoundName;    //el nombre del audio que dará la orden en esta actividad
 
     protected readonly string[] LoliVoicesCorrect = { "LoliExcelente", "LoliRespondisteMuybien", "LoliBienSigueAsi", "LoliEsoEstuvoGenial" };
     protected readonly string[] LoliVoicesWrong = { "LoliDeNuevo", "LoliIntentaloOtraVez", "LoliNoTeDesanimes", "LoliPuedesHacerloMejor" };
@@ -40,7 +42,7 @@ public abstract class ActivityController : MonoBehaviour {
 
         ResetOrder();
 
-        print(AnimalManager.Instance.FilterByUtility(0).Count);
+        //print(AnimalManager.Instance.FilterByUtility(0).Count);
 
         Spawn();
 
@@ -384,19 +386,19 @@ public abstract class ActivityController : MonoBehaviour {
 
         foreach (Button button in optionContainer.GetComponentsInChildren<Button>())
         {
-            button.GetComponent<AnimalOptionDisplay>().selected = false;
+            //button.GetComponent<AnimalOptionDisplay>().selected = false;
 
             oldCB = button.colors;
-            oldCB.normalColor = myColors[0];
-            oldCB.highlightedColor = myColors[0];
-            oldCB.disabledColor = myColors[0];
+            oldCB.normalColor = Color.white;
+            oldCB.highlightedColor = Color.white;
+            oldCB.disabledColor = Color.white;
             button.colors = oldCB;
         }
 
-        if (activityName == "Activity3")
-        {
-            activity3Flag = 0;
-        }
+        //if (activityName == "Activity3")
+        //{
+        //    activity3Flag = 0;
+        //}
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using DigitalRuby.SoundManagerNamespace;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class ActivitiySelect : ActivityController {
 
         order = Random.Range(0, 4);
         //order = 1;
-        int a = 0;         //Número de opciones en cada clasificación
+        //int a = 0;         //Número de opciones en cada clasificación
 
         ButtonContainers[order].SetActive(true);
 
@@ -25,25 +26,37 @@ public class ActivitiySelect : ActivityController {
         {
             case 0:
                 //Type
-                a = 2;
+                orderString = "Type";
+                //a = 2;
+                answer = Random.Range(0, 2);
+                answerString = System.Enum.GetName(typeof(Animal.type), answer);
                 break;
             case 1:
                 //Utility
-                a = 3;
+                orderString = "Utility";
+                //a = 3;
+                answer = Random.Range(0, 3);
+                answerString = System.Enum.GetName(typeof(Animal.utility), answer);
                 break;
             case 2:
                 //SkinCover
-                a = 3;
+                orderString = "SkinCover";
+                //a = 3;
+                answer = Random.Range(0, 3);
+                answerString = System.Enum.GetName(typeof(Animal.skinCover), answer);
                 break;
             case 3:
                 //Movement
-                a = 6;
+                orderString = "Movement";
+                //a = 6;
+                answer = Random.Range(0, 6);
+                answerString = System.Enum.GetName(typeof(Animal.movement), answer);
                 break;
             default:
                 break;
         }
 
-        answer = Random.Range(0, a);
+        //answer = Random.Range(0, a);
 
         //AudioManager.Instance.PlayVoice(orderSoundName);
     }
@@ -52,80 +65,75 @@ public class ActivitiySelect : ActivityController {
     public override void Spawn()
     {
 
-        txtShowOrder.text = "Puntaje: " + score + " / Orden: "+ order + " / Respuesta: " + answer;
+        txtShowOrder.text = "Puntaje: " + score + " / Orden: "+ orderString + " / Respuesta: " + answerString;
 
         Animal animal = null;
 
-
-        //bool modo = System.Convert.ToBoolean(Random.Range(0, 2));
-
+        print("Order: " + orderString);
+        print("Answer: " + answerString);
 
         switch (order)
         {
             case 0:
                 //Type
+                //print("Order: Type");
+                //print("Answer: " + (Animal.type)answer);
                 animal = AnimalManager.Instance.GetRandomAnimalByType(answer, true);
                 break;
             case 1:
                 //Utility
+                //print("Order: Utility");
+                //print("Answer: " + (Animal.utility)answer);
                 animal = AnimalManager.Instance.GetRandomAnimalByUtility(answer, true);
                 break;
             case 2:
                 //SkinCover
+                //print("Order: SkinCover");
+                //print("Answer: " + (Animal.skinCover)answer);
                 animal = AnimalManager.Instance.GetRandomAnimalBySkinCover(answer, true);
                 break;
             case 3:
                 //Movement
+                //print("Order: Movement");
+                //print("Answer: " + (Animal.movement)answer);
                 animal = AnimalManager.Instance.GetRandomAnimalByMovement(answer, true);
                 break;
             default:
                 break;
         }
-
-        //animal = AnimalManager.Instance.GetRandomAnimalByUtility(answer, true);
-
-
+        
         
         GameObject newAnimalOption = Instantiate(animalOptionPrefab);
         newAnimalOption.GetComponent<AnimalOptionDisplay>().animal = animal;
 
-        ColorBlock oldCB = newAnimalOption.GetComponent<Button>().colors;
-
-        print(animal.utilidad);
-        print("RESPUESTA: " + (Animal.utility)answer);
-
-
-        if (animal.utilidad.Equals((Animal.utility)answer))
-        {
-            print("ANIMAL: recibio color 1 (pressed)");
-
-            oldCB.pressedColor = Color.green;
-        }
-        else
-        {
-            print("ANIMAL: recibio color 2 (pressed)");
-            oldCB.pressedColor = Color.red;
-        }
-
-        oldCB.disabledColor = Color.white;
-
-        newAnimalOption.GetComponent<Button>().colors = oldCB;
-
-        newAnimalOption.name = animal.name;
-        //newAnimalOption.transform.GetChild(0).GetComponent<Image>().sprite = beingSprite;
-
+        //ColorBlock oldCB = newAnimalOption.GetComponent<Button>().colors;
 
         
-        newAnimalOption.transform.SetParent(optionContainer.transform);
+        //if (animal.utilidad.Equals((Animal.utility)answer))
+        //{
+        //    print("ANIMAL: recibio color 1 (pressed)");
 
+        //    oldCB.pressedColor = Color.green;
+        //}
+        //else
+        //{
+        //    print("ANIMAL: recibio color 2 (pressed)");
+        //    oldCB.pressedColor = Color.red;
+        //}
+
+        //oldCB.disabledColor = Color.white;
+
+        //newAnimalOption.GetComponent<Button>().colors = oldCB;
+
+        newAnimalOption.name = animal.name;     
+        newAnimalOption.transform.SetParent(optionContainer.transform);
         newAnimalOption.GetComponent<Button>().interactable = false;
         //newAnimalOption.GetComponent<Button>().onClick.AddListener(delegate { EvaluateOnClick(newAnimalOption.GetComponent<Button>()); });
 
-        newAnimalOption.transform.localScale = new Vector3(1f, 1f, 1f);
-        
-
+        newAnimalOption.transform.localScale = new Vector3(1.15f, 1.15f, 1.15f);
 
     }
+
 
     public override void ResPawn()
     {
@@ -147,17 +155,22 @@ public class ActivitiySelect : ActivityController {
 
     public override void EvaluateOnClick(Button buttonClicked)
     {
+
+        Button animalOption = optionContainer.transform.GetChild(0).GetComponent<Button>();
+        ColorBlock oldCB;
+        oldCB = animalOption.colors;
+
+
         print("CLICK");
         //DisableAllButtons();
-        ColorBlock oldCB;
+        
 
-        if (buttonClicked.GetComponent<AnimalOptionDisplay>().animal.utilidad.Equals((Animal.utility)answer))
+        if (buttonClicked.name.Equals(answerString))
         {
             print("CORRECTO");
 
-            oldCB = buttonClicked.colors;
-            oldCB.disabledColor = myColors[1];
-            buttonClicked.colors = oldCB;
+            oldCB.disabledColor = Color.green;
+            animalOption.colors = oldCB;
 
             score++;
             Debug.Log(score);
@@ -173,10 +186,9 @@ public class ActivitiySelect : ActivityController {
         else
         {
             print("INCORRECTO");
-
-            oldCB = buttonClicked.colors;
-            oldCB.disabledColor = myColors[2];
-            buttonClicked.colors = oldCB;
+                        
+            oldCB.disabledColor = Color.red;
+            animalOption.colors = oldCB;
 
             DisableAllButtons();
             StartCoroutine(Wrong());

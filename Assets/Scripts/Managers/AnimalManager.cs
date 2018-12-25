@@ -8,7 +8,6 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
     public List<Animal> alreadyInUse;
 
 
-    // Use this for initialization
     void Start()
     {
         alreadyInUse = new List<Animal>();
@@ -18,169 +17,161 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
     public List<Animal> FilterByType(int t)
     {
         List<Animal> filtered = new List<Animal>();
-
         foreach (Animal a in animalList)
         {
-
             if (a.tipo == (Animal.type)t)
             {
-                print(a);
                 filtered.Add(a);
             }
         }
-
         return filtered;
     }
+
 
     public List<Animal> FilterByUtility(int u)
     {
         List<Animal> filtered = new List<Animal>();
-
         foreach (Animal a in animalList) {
-            
             if (a.utilidad == (Animal.utility)u)
-            {
-                print(a);
+            { 
                 filtered.Add(a);
             }
         }
-
         return filtered;
     }
+
 
     public List<Animal> FilterBySkinCover(int sc)
     {
         List<Animal> filtered = new List<Animal>();
-
         foreach (Animal a in animalList)
         {
-
             if (a.cubiertos == (Animal.skinCover)sc)
             {
-                print(a);
                 filtered.Add(a);
             }
         }
-
         return filtered;
     }
+
 
     public List<Animal> FilterByMovement(int m)
     {
         List<Animal> filtered = new List<Animal>();
-
         foreach (Animal a in animalList)
         {
-
             if (a.movimiento == (Animal.movement)m)
             {
-                print(a);
                 filtered.Add(a);
             }
         }
-
         return filtered;
     }
 
 
-    public Animal GetRandomAnimalByType(int type, bool mode)
+    public Animal GetRandomAnimalByType(int answer, bool mode)
     {
         List<Animal> aux = new List<Animal>();
         Animal animal;
 
         if (mode)
         {
-            aux = FilterByType(type);
+            aux = FilterByType(answer);
         }
         else
         {
-            byte a;
+            int a;
 
             do
             {
-                a = System.Convert.ToByte(Random.Range(0, 2));
-            } while (a == type);
+                a = Random.Range(0, 2);
+                //print("a: " + a);
+                //print("answer: " + answer);
+            } while (a == answer);
 
             aux = FilterByType(a);            
         }
-
         animal = aux[Random.Range(0, aux.Count)];
         return animal;
     }
 
 
-    public Animal GetRandomAnimalByUtility(int utility, bool mode)
+    public Animal GetRandomAnimalByUtility(int answer, bool mode)
     {
         List<Animal> aux = new List<Animal>();
         Animal animal;
 
         if (mode)
         {
-            aux = FilterByUtility(utility);
+            aux = FilterByUtility(answer);
         }
         else
         {
-            byte a;
+            int a;
             do
             {
-                a = System.Convert.ToByte(Random.Range(0, 3));
-            } while (a == utility);
+                a = Random.Range(0, 3);
+                //print("a: " + a);
+                //print("answer: " + answer);
+            } while (a == answer);
             
             aux = FilterByUtility(a);
                                     
         }
-
         animal = aux[Random.Range(0, aux.Count)];
         return animal;
     }
 
 
-    public Animal GetRandomAnimalBySkinCover(int skinCover, bool mode)
+    public Animal GetRandomAnimalBySkinCover(int answer, bool mode)
     {
         List<Animal> aux = new List<Animal>();
         Animal animal;
 
         if (mode)
         {
-            aux = FilterByType(skinCover);
+            aux = FilterBySkinCover(answer);
         }
         else
         {
-            byte a;
-
+            int a;
             do
             {
-                a = System.Convert.ToByte(Random.Range(0, 3));
-            } while (a == skinCover);
+                a = Random.Range(0, 3);
+                //print("a: " + a);
+                //print("answer: " + answer);
+            } while (a == answer);
 
             aux = FilterByType(a);
         }
-
         animal = aux[Random.Range(0, aux.Count)];
         return animal;
     }
 
-    public Animal GetRandomAnimalByMovement(int move, bool mode)
+
+    public Animal GetRandomAnimalByMovement(int answer, bool mode)
     {
         List<Animal> aux = new List<Animal>();
         Animal animal;
 
         if (mode)
         {
-            aux = FilterByType(move);
+            aux = FilterByMovement(answer);
         }
         else
         {
-            byte a;
+            int a;
 
             do
             {
-                a = System.Convert.ToByte(Random.Range(0, 6));
-            } while (a == move);
+                a = Random.Range(0, 6);
+                //print("a: " + a);
+                //print("answer: " + answer);
+            } while (a == answer);
 
             aux = FilterByType(a);
         }
-
+        //print("AUX.COUNT=" + aux.Count);
         animal = aux[Random.Range(0, aux.Count)];
         return animal;
     }
