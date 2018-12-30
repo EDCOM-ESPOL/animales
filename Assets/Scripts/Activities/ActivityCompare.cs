@@ -16,7 +16,8 @@ public class ActivityCompare : ActivityController {
 
     public override void Spawn()
     {
-        txtShowOrder.text = "Puntaje: " + score+ " / Orden: Utilidad" + " / Respuesta: " + ((Animal.utility)answer).ToString();
+        //txtShowOrder.text = "Puntaje: " + score+ " / Orden: Utilidad" + " / Respuesta: " + ((Animal.utility)answer).ToString();
+        txtShowOrder.text = "Puntaje: " + score + " / Orden: " + orderString + " / Respuesta: " + answerString;
 
         List<Animal> newAnimals = new List<Animal>();
         

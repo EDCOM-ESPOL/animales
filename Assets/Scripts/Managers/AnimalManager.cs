@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalManager: UnitySingleton<AnimalManager>{
+public class AnimalManager : UnitySingleton<AnimalManager> {
 
     public Animal[] animalList;
     public List<Animal> alreadyInUse;
@@ -33,7 +33,7 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
         List<Animal> filtered = new List<Animal>();
         foreach (Animal a in animalList) {
             if (a.utilidad == (Animal.utility)u)
-            { 
+            {
                 filtered.Add(a);
             }
         }
@@ -89,7 +89,7 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
                 //print("answer: " + answer);
             } while (a == answer);
 
-            aux = FilterByType(a);            
+            aux = FilterByType(a);
         }
         animal = aux[Random.Range(0, aux.Count)];
         return animal;
@@ -114,9 +114,9 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
                 //print("a: " + a);
                 //print("answer: " + answer);
             } while (a == answer);
-            
+
             aux = FilterByUtility(a);
-                                    
+
         }
         animal = aux[Random.Range(0, aux.Count)];
         return animal;
@@ -190,5 +190,75 @@ public class AnimalManager: UnitySingleton<AnimalManager>{
 
         return false;
     }
+
+
+    public List<Animal> GetEmptyAnimalListByUtility(int num)
+    {
+        Animal emptyAnimal;
+
+        List<Animal> emptyAnimalList = new List<Animal>();
+        
+        for (int i = 0; i < num; i++)
+        {
+            emptyAnimal = ScriptableObject.CreateInstance<Animal>();
+            emptyAnimal.name = "Empty_Animal";
+            emptyAnimal.utilidad = (Animal.utility)i;
+            emptyAnimalList.Add(emptyAnimal);
+            emptyAnimalList.Add(emptyAnimal);
+            emptyAnimalList.Add(emptyAnimal);
+        }
+
+        foreach (Animal item in emptyAnimalList)
+        {
+            print(item.utilidad);
+        }
+
+        return emptyAnimalList;
+
+    }
+    
+
+    public List<Animal> GetRandomListByUtility(int num)
+    {
+        List<Animal> domesticList = FilterByUtility(0);
+        List<Animal> harmfulList = FilterByUtility(1);
+        List<Animal> wildList = FilterByUtility(2);
+
+        List<Animal> rndList = new List<Animal>();
+
+
+        for (int i = 0; i < num; i++)
+        {
+            rndList.Add(domesticList[Random.Range(0, domesticList.Count)]);
+            rndList.Add(harmfulList[Random.Range(0, domesticList.Count)]);
+            rndList.Add(wildList[Random.Range(0, domesticList.Count)]);
+        }
+
+        return Fisher_Yates_CardDeck_Shuffle(rndList);
+
+    }
+
+
+    public static List<Animal> Fisher_Yates_CardDeck_Shuffle(List<Animal> aList)
+    {
+
+        System.Random _random = new System.Random();
+
+        Animal myGO;
+
+        int n = aList.Count;
+        for (int i = 0; i < n; i++)
+        {
+            // NextDouble returns a random number between 0 and 1.
+            // ... It is equivalent to Math.random() in Java.
+            int r = i + (int)(_random.NextDouble() * (n - i));
+            myGO = aList[r];
+            aList[r] = aList[i];
+            aList[i] = myGO;
+        }
+
+        return aList;
+    }
+
 
 }
