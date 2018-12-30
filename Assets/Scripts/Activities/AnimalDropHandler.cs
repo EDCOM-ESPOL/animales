@@ -13,15 +13,19 @@ public class AnimalDropHandler : MonoBehaviour, IDropHandler {
         print("Dragged: " + draggedAnimal.utilidad);
         print("Dropped to: " + slotAnimal.utilidad);
 
-        if (draggedAnimal.utilidad.Equals(slotAnimal.utilidad))
+        if (draggedAnimal.utilidad.Equals(slotAnimal.utilidad) &&(gameObject.GetComponent<AnimalOptionDisplay>().animal.name=="Empty_Animal"))
         {
             print("CORRECT");
             gameObject.name = draggedAnimal.name;
             gameObject.transform.GetChild(0).GetComponent<Image>().sprite = draggedAnimal.sprite;
             gameObject.GetComponent<AnimalOptionDisplay>().animal = draggedAnimal;
 
-            GameObject.Destroy(AnimalDragHandler.itemBeingDragged);
-            print(GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().optionContainer.transform.GetChild(0));
+           // AnimalDragHandler.itemBeingDragged.GetComponent<Image>().enabled=false;
+            AnimalDragHandler.itemBeingDragged.GetComponent<Image>().enabled=false;
+            AnimalDragHandler.itemBeingDragged.GetComponent<AnimalOptionDisplay>().image.enabled=false;
+            GameObject.Destroy(AnimalDragHandler.itemBeingDragged.GetComponent<AnimalOptionDisplay>());
+          //  GameObject.Destroy(AnimalDragHandler.itemBeingDragged);
+           // print(GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().optionContainer.transform.GetChild(0));
 
             //if (GetComponent<ActivityDragAndDrop>().optionContainer.transform.childCount == 0)
             //{
