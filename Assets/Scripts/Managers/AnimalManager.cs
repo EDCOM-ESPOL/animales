@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalManager : UnitySingleton<AnimalManager> {
+public class AnimalManager : UnitySingleton<AnimalManager>
+{
 
     public Animal[] animalList;
     public List<Animal> alreadyInUse;
@@ -31,7 +32,8 @@ public class AnimalManager : UnitySingleton<AnimalManager> {
     public List<Animal> FilterByUtility(int u)
     {
         List<Animal> filtered = new List<Animal>();
-        foreach (Animal a in animalList) {
+        foreach (Animal a in animalList)
+        {
             if (a.utilidad == (Animal.utility)u)
             {
                 filtered.Add(a);
@@ -197,7 +199,7 @@ public class AnimalManager : UnitySingleton<AnimalManager> {
         Animal emptyAnimal;
 
         List<Animal> emptyAnimalList = new List<Animal>();
-        
+
         for (int i = 0; i < num; i++)
         {
             emptyAnimal = ScriptableObject.CreateInstance<Animal>();
@@ -216,7 +218,7 @@ public class AnimalManager : UnitySingleton<AnimalManager> {
         return emptyAnimalList;
 
     }
-    
+
 
     public List<Animal> GetRandomListByUtility(int num)
     {
@@ -226,13 +228,44 @@ public class AnimalManager : UnitySingleton<AnimalManager> {
 
         List<Animal> rndList = new List<Animal>();
 
+        List<int> listNumbersDomestic = new List<int>();
+        int numberDomestic;
+
+        List<int> listNumbersH = new List<int>();
+        int numberH;
+
+        List<int> listNumbersW = new List<int>();
+        int numberW;
 
         for (int i = 0; i < num; i++)
         {
-            rndList.Add(domesticList[Random.Range(0, domesticList.Count)]);
-            rndList.Add(harmfulList[Random.Range(0, domesticList.Count)]);
-            rndList.Add(wildList[Random.Range(0, domesticList.Count)]);
+
+            do
+            {
+                numberDomestic = Random.Range(0, domesticList.Count);
+            } while (listNumbersDomestic.Contains(numberDomestic));
+            listNumbersDomestic.Add(numberDomestic);
+            rndList.Add(domesticList[numberDomestic]);
+        
+     
+
+            do
+            {
+                numberH = Random.Range(0, harmfulList.Count);
+            } while (listNumbersH.Contains(numberH));
+            listNumbersH.Add(numberH);
+            rndList.Add(harmfulList[numberH]);
+        
+            do
+            {
+                numberW = Random.Range(0, wildList.Count);
+            } while (listNumbersW.Contains(numberW));
+            listNumbersW.Add(numberW);
+            rndList.Add(wildList[numberW]);
+
         }
+
+
 
         return Fisher_Yates_CardDeck_Shuffle(rndList);
 
