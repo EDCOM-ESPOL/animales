@@ -6,32 +6,35 @@ using UnityEngine.UI;
 
 public class AnimalDropHandler : MonoBehaviour, IDropHandler {
 
+    public Animal.utility utilidad;
+    public GameObject item
+    {
+        get
+        {
+            if (transform.childCount > 0)
+            {
+                return transform.GetChild(0).gameObject;
+            }
+            return null;
+        }
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
         Animal draggedAnimal = AnimalDragHandler.itemBeingDragged.GetComponent<AnimalOptionDisplay>().animal;
-        Animal slotAnimal = gameObject.GetComponent<AnimalOptionDisplay>().animal;
-        print("Dragged: " + draggedAnimal.utilidad);
-        print("Dropped to: " + slotAnimal.utilidad);
-
-        if (draggedAnimal.utilidad.Equals(slotAnimal.utilidad) &&(gameObject.GetComponent<AnimalOptionDisplay>().animal.name=="Empty_Animal"))
+        
+        if (draggedAnimal.utilidad.Equals(utilidad) && !item)
         {
-            print("CORRECT");
-            gameObject.name = draggedAnimal.name;
-            gameObject.transform.GetChild(0).GetComponent<Image>().sprite = draggedAnimal.sprite;
-            gameObject.GetComponent<AnimalOptionDisplay>().animal = draggedAnimal;
+            
+            AnimalDragHandler.itemBeingDragged.transform.SetParent(transform);
+            Destroy(item.GetComponent<AnimalDragHandler>());
 
-           // AnimalDragHandler.itemBeingDragged.GetComponent<Image>().enabled=false;
-            AnimalDragHandler.itemBeingDragged.GetComponent<Image>().enabled=false;
-            AnimalDragHandler.itemBeingDragged.GetComponent<AnimalOptionDisplay>().image.enabled=false;
-            GameObject.Destroy(AnimalDragHandler.itemBeingDragged.GetComponent<AnimalOptionDisplay>());
-          //  GameObject.Destroy(AnimalDragHandler.itemBeingDragged);
-           // print(GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().optionContainer.transform.GetChild(0));
+            RectTransform rectTransform = AnimalDragHandler.itemBeingDragged.GetComponent<RectTransform>();
+            
+            rectTransform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
 
-            //if (GetComponent<ActivityDragAndDrop>().optionContainer.transform.childCount == 0)
-            //{
-            //    GetComponent<ActivityDragAndDrop>().Win();
-            //}
-
+            GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().SuccessfulDrop();
+            
         }
     }
 

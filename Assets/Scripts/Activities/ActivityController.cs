@@ -32,7 +32,7 @@ public abstract class ActivityController : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start() {
+    public virtual void Start() {
         //AudioManager.Instance.PlayMusic("BGM");
         activityName = GameStateManager.Instance.getCurrentSceneName();
 
