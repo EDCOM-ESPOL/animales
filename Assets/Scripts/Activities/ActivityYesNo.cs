@@ -22,7 +22,7 @@ public class ActivityYesNo : MonoBehaviour {
     private Transform option;
 
     private string activityName;
-    private readonly int numberOfSubLevels = 10;
+    private readonly int numberOfSubLevels = 5;
     private int score = 0;
     private int errors = 0;
     
@@ -73,7 +73,23 @@ public class ActivityYesNo : MonoBehaviour {
 
         answer = System.Convert.ToByte(Random.Range(0, a));
 
-        //AudioManager.Instance.PlayVoice(orderSoundName);
+        switch (answer)
+        {
+            case 0:
+                orderSoundName = "A4 - EsAnimalUtil";
+                break;
+            case 1:
+                orderSoundName = "A4 - EsAnimalPerjudicial";
+                break;
+            case 2:
+                orderSoundName = "A4 - EsAnimalSelva";
+                break;
+            default:
+                break;
+        }
+
+
+        AudioManager.Instance.PlayVoice(orderSoundName);
     }
 
     public void DisableAllButtons()
@@ -236,8 +252,8 @@ public class ActivityYesNo : MonoBehaviour {
 
             
                     //scores[0] = scores[0] + 1;
-                    score++;
-                    Debug.Log(score);
+                    //score++;
+                    //Debug.Log(score);
                    
                     //SessionManager.Instance.setPlayerScore(scores);
                              
@@ -284,6 +300,7 @@ public class ActivityYesNo : MonoBehaviour {
         DisableAllButtons();
 
         AudioManager.Instance.PlayVoice(RndVoiceGenerator(LoliVoicesCorrect));
+        score++;
         
         yield return new WaitForSeconds(3);
         EnableAllButtons();

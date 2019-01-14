@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DigitalRuby.SoundManagerNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,6 +17,10 @@ public class ActivityDragAndDrop : ActivityController {
         //a = 3;
         answer = Random.Range(0, 3);
         answerString = System.Enum.GetName(typeof(Animal.utility), answer);
+
+
+        orderSoundName = "A3 - UbicaAnimalesCasillaCorresponda";
+        AudioManager.Instance.PlayVoice(orderSoundName);
     }
 
     //public void SpawnBlanks(int num)

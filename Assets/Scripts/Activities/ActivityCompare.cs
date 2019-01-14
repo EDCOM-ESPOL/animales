@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DigitalRuby.SoundManagerNamespace;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,26 @@ public class ActivityCompare : ActivityController {
         int a = 3;
 
         answer = Random.Range(0, a);
+
+        switch (answer)
+        {
+            case 0:
+                orderSoundName = "A1 - CualAnimalUtil";
+                break;
+            case 1:
+                orderSoundName = "A1 - CualAnimalPerjudicial";
+                break;
+            case 2:
+                orderSoundName = "A1 - CualAnimalViveSelva";
+                break;
+            default:
+                break;
+        }
+
+        orderString = "Utilidad";
+        answerString = System.Enum.GetName(typeof(Animal.utility), answer);
+        AudioManager.Instance.PlayVoice(orderSoundName);
+
     }
        
 
@@ -104,8 +125,8 @@ public class ActivityCompare : ActivityController {
             oldCB.disabledColor = myColors[1];
             buttonClicked.colors = oldCB;
                         
-            score++;
-            Debug.Log(score);
+            //score++;
+            //Debug.Log(score);
             subLevelFinished = true;
                         
 

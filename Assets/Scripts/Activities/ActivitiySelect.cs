@@ -30,6 +30,7 @@ public class ActivitiySelect : ActivityController {
                 //a = 2;
                 answer = Random.Range(0, 2);
                 answerString = System.Enum.GetName(typeof(Animal.type), answer);
+                orderSoundName = "A2 - EscogeDondeViveAnimal";
                 break;
             case 1:
                 //Utility
@@ -37,6 +38,7 @@ public class ActivitiySelect : ActivityController {
                 //a = 3;
                 answer = Random.Range(0, 3);
                 answerString = System.Enum.GetName(typeof(Animal.utility), answer);
+                orderSoundName = "A2 - AQueClasePertenece";
                 break;
             case 2:
                 //SkinCover
@@ -44,6 +46,7 @@ public class ActivitiySelect : ActivityController {
                 //a = 3;
                 answer = Random.Range(0, 3);
                 answerString = System.Enum.GetName(typeof(Animal.skinCover), answer);
+                orderSoundName = "A2 - EscogeComoCubiertoCuerpoAnimal";
                 break;
             case 3:
                 //Movement
@@ -51,6 +54,7 @@ public class ActivitiySelect : ActivityController {
                 //a = 6;
                 answer = Random.Range(0, 6);
                 answerString = System.Enum.GetName(typeof(Animal.movement), answer);
+                orderSoundName = "A2 - EscogeComoSeMueveAnimal";
                 break;
             default:
                 break;
@@ -58,7 +62,7 @@ public class ActivitiySelect : ActivityController {
 
         //answer = Random.Range(0, a);
 
-        //AudioManager.Instance.PlayVoice(orderSoundName);
+        AudioManager.Instance.PlayVoice(orderSoundName);
     }
 
 
@@ -172,8 +176,8 @@ public class ActivitiySelect : ActivityController {
             oldCB.disabledColor = Color.green;
             animalOption.colors = oldCB;
 
-            score++;
-            Debug.Log(score);
+            //score++;
+            //Debug.Log(score);
             subLevelFinished = true;
 
 
