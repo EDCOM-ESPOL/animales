@@ -25,7 +25,7 @@ public class AnimalDropHandler : MonoBehaviour, IDropHandler {
         
         if (draggedAnimal.utilidad.Equals(utilidad) && !item)
         {
-            
+            //item.GetComponent<Image>().enabled = false;
             AnimalDragHandler.itemBeingDragged.transform.SetParent(transform);
             Destroy(item.GetComponent<AnimalDragHandler>());
 
