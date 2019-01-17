@@ -34,7 +34,11 @@ public class AnimalDropHandler : MonoBehaviour, IDropHandler {
             rectTransform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
 
             GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().SuccessfulDrop();
-            
+
+        }
+        else
+        {
+            GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().WrongDrop();
         }
     }
 

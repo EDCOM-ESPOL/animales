@@ -123,11 +123,22 @@ public class ActivityDragAndDrop : ActivityController {
     public void SuccessfulDrop(){
         successfulDropsCount++;
         print(successfulDropsCount);
+        AudioManager.Instance.PlayVoice(RndVoiceGenerator(LoliVoicesCorrect));
         if (successfulDropsCount > 8)
         {
             DisableAllButtons();
             StartCoroutine(Win());
         }
+    }
+
+    public void WrongDrop()
+    {
+        
+        
+        
+        
+            StartCoroutine(Wrong());
+        
     }
 
 }
