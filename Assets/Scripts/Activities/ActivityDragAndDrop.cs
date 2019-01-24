@@ -1,16 +1,26 @@
 ﻿using DigitalRuby.SoundManagerNamespace;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class ActivityDragAndDrop : ActivityController {
 
     public GameObject slotContainer;
     private static int successfulDropsCount = 0;
+    protected new readonly int numberOfSubLevels = 2;
+    protected int currentSubLevel = 0;
 
-  
+
     public override void ResetOrder()
     {
+
+        foreach (Transform child in slotContainer.transform)
+        {
+            child.GetComponent<Image>().enabled = true;
+        }
+
+        successfulDropsCount = 0;
         order = 1;
         //Utility
         orderString = "Utility";
@@ -124,21 +134,63 @@ public class ActivityDragAndDrop : ActivityController {
         successfulDropsCount++;
         print(successfulDropsCount);
         AudioManager.Instance.PlayVoice(RndVoiceGenerator(LoliVoicesCorrect));
+
+        //DisableAllButtons();
+        
+
         if (successfulDropsCount > 8)
         {
-            DisableAllButtons();
+            currentSubLevel++;
             StartCoroutine(Win());
         }
     }
 
-    public void WrongDrop()
+    public void WrongDrop(Button button)
     {
-        
-        
-        
-        
-            StartCoroutine(Wrong());
-        
+        AudioManager.Instance.PlayVoice(RndVoiceGenerator(LoliVoicesWrong));
+        errors++;
+        StartCoroutine(RedButton(button));
+        //StartCoroutine(Wrong());   
+    }
+
+    IEnumerator RedButton(Button button)
+    {
+        ColorBlock colorBlock;
+        colorBlock = button.colors;
+        colorBlock.normalColor = Color.red;
+        colorBlock.highlightedColor = Color.red;
+
+        button.colors = colorBlock;
+
+        yield return new WaitForSeconds(2);
+
+        colorBlock = button.colors;
+        colorBlock.normalColor = Color.white;
+        colorBlock.highlightedColor = Color.white;
+
+        button.colors = colorBlock;
+    }
+
+
+    public override IEnumerator Win()
+    {
+        DisableAllButtons();
+
+        AudioManager.Instance.PlayVoice(RndVoiceGenerator(LoliVoicesCorrect));
+        score += successfulDropsCount;
+
+        yield return new WaitForSeconds(3);
+
+        if (currentSubLevel >= numberOfSubLevels)
+        {
+            EndLevel("completado");
+        }
+        else
+        {
+            ResetOrder();
+            ResPawn();
+        }
+
     }
 
 }

@@ -21,11 +21,13 @@ public class AnimalDropHandler : MonoBehaviour, IDropHandler {
 
     public void OnDrop(PointerEventData eventData)
     {
+        ColorBlock colorBlock;
+
         Animal draggedAnimal = AnimalDragHandler.itemBeingDragged.GetComponent<AnimalOptionDisplay>().animal;
         
         if (draggedAnimal.utilidad.Equals(utilidad) && !item)
         {
-            //item.GetComponent<Image>().enabled = false;
+            GetComponent<Image>().enabled = false;
             AnimalDragHandler.itemBeingDragged.transform.SetParent(transform);
             Destroy(item.GetComponent<AnimalDragHandler>());
 
@@ -35,10 +37,17 @@ public class AnimalDropHandler : MonoBehaviour, IDropHandler {
 
             GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().SuccessfulDrop();
 
+
+            colorBlock = item.GetComponent<Button>().colors;
+            colorBlock.disabledColor = Color.green;
+            item.GetComponent<Button>().colors = colorBlock;
+            item.GetComponent<Button>().interactable = false;
+
         }
         else
         {
-            GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().WrongDrop();
+            
+            GameObject.Find("ActivityController").GetComponent<ActivityDragAndDrop>().WrongDrop(AnimalDragHandler.itemBeingDragged.GetComponent<Button>());
         }
     }
 

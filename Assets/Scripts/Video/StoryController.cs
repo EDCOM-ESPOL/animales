@@ -23,7 +23,7 @@ public class StoryController : VideoController {
 	void Update () {
         if (!isPaused)
         {
-            if (player.time >= 175.0f)
+            if (player.time >= 170.0f)
             {
                 replayButton.interactable = false;
                 skipButton.interactable = false;
@@ -32,7 +32,7 @@ public class StoryController : VideoController {
                     storyData.estado = "completado";
                 }else storyData.estado = "abandonado";
                 panel.SetActive(true);
-                if (player.time >= 180.0f)
+                if (player.time >= 175.0f)
                 {
                     SendJSONAndGoToScene("EntornoNaturalHub");
                 }
