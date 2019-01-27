@@ -8,7 +8,7 @@ public class ActivityDragAndDrop : ActivityController {
 
     public GameObject slotContainer;
     private static int successfulDropsCount = 0;
-    protected new readonly int numberOfSubLevels = 2;
+    protected new readonly int numberOfSubLevels = 5;
     protected int currentSubLevel = 0;
 
 
@@ -62,35 +62,13 @@ public class ActivityDragAndDrop : ActivityController {
 
         txtShowOrder.text = "Puntaje: " + score + " / Orden: " + orderString;
 
-        List<Animal> newAnimals = AnimalManager.Instance.GetRandomListByUtility(3);
+        List<Animal> newAnimals = AnimalManager.Instance.GetRandomListByUtility(2);
 
         int i = 0;
         foreach (Animal animal in newAnimals)
         {
             GameObject newAnimalOption = Instantiate(animalOptionPrefab);
             newAnimalOption.GetComponent<AnimalOptionDisplay>().animal = animal;
-
-            //ColorBlock oldCB = newAnimalOption.GetComponent<Button>().colors;
-
-            //print(animal.utilidad);
-            //print("RESPUESTA: " + (Animal.utility)answer);
-
-
-            //if (animal.utilidad.Equals((Animal.utility)answer))
-            //{
-            //    print("ANIMAL: recibio color 1 (pressed)");
-
-            //    oldCB.pressedColor = Color.green;
-            //}
-            //else
-            //{
-            //    print("ANIMAL: recibio color 2 (pressed)");
-            //    oldCB.pressedColor = Color.red;
-            //}
-
-            //oldCB.disabledColor = Color.white;
-
-            //newAnimalOption.GetComponent<Button>().colors = oldCB;
 
             newAnimalOption.name = animal.name;
 
@@ -138,7 +116,7 @@ public class ActivityDragAndDrop : ActivityController {
         //DisableAllButtons();
         
 
-        if (successfulDropsCount > 8)
+        if (successfulDropsCount > 5)
         {
             currentSubLevel++;
             StartCoroutine(Win());
