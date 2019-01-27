@@ -76,13 +76,13 @@ public class ActivityYesNo : MonoBehaviour {
         switch (answer)
         {
             case 0:
-                orderSoundName = "A4 - EsAnimalUtil";
+                orderSoundName = "A4 - EsAnimalDomestico";
                 break;
             case 1:
                 orderSoundName = "A4 - EsAnimalPerjudicial";
                 break;
             case 2:
-                orderSoundName = "A4 - EsAnimalSelva";
+                orderSoundName = "A4 - EsAnimalSalvaje";
                 break;
             default:
                 break;

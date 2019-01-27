@@ -16,13 +16,13 @@ public class ActivityCompare : ActivityController {
         switch (answer)
         {
             case 0:
-                orderSoundName = "A1 - CualAnimalUtil";
+                orderSoundName = "A1 - CualAnimalDomestico";
                 break;
             case 1:
                 orderSoundName = "A1 - CualAnimalPerjudicial";
                 break;
             case 2:
-                orderSoundName = "A1 - CualAnimalViveSelva";
+                orderSoundName = "A1 - CualAnimalSalvaje";
                 break;
             default:
                 break;

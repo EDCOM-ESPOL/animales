@@ -24,7 +24,7 @@ public class GameStateManager : UnitySingleton<GameStateManager>
     // Use this for initialization
     IEnumerator Start()
     {
-        netService = true;
+        netService = false;
 
         if (netService)
         {

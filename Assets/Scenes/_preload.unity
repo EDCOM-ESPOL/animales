@@ -3138,7 +3138,7 @@ GameObject:
   - component: {fileID: 1726119793}
   - component: {fileID: 1726119794}
   m_Layer: 0
-  m_Name: A4 - EsAnimalSelva
+  m_Name: A4 - EsAnimalSalvaje
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3166,7 +3166,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: dfff34d123f84d6448f27b7219f49cfe, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1257c7f67e1e60c4bb170b0b1cabf34c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3247,7 +3247,7 @@ GameObject:
   - component: {fileID: 1782686884}
   - component: {fileID: 1782686885}
   m_Layer: 0
-  m_Name: A1 - CualAnimalViveSelva
+  m_Name: A1 - CualAnimalSalvaje
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3275,7 +3275,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 72bc35a249c9d9d448fa8b8a3d911e20, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 940d6523f4ac1b541b1ac11797438c4a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3792,7 +3792,7 @@ GameObject:
   - component: {fileID: 1978397527}
   - component: {fileID: 1978397528}
   m_Layer: 0
-  m_Name: A4 - EsAnimalUtil
+  m_Name: A4 - EsAnimalDomestico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3901,7 +3901,7 @@ GameObject:
   - component: {fileID: 2097308155}
   - component: {fileID: 2097308156}
   m_Layer: 0
-  m_Name: A1 - CualAnimalUtil
+  m_Name: A1 - CualAnimalDomestico
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

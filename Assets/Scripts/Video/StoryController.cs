@@ -1,89 +1,76 @@
 ﻿using DigitalRuby.SoundManagerNamespace;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StoryController : VideoController {
 
+    public Button backButton;
     public Button replayButton;
-    public Button skipButton;
+    public GameObject videoControlsPanel;
 
     public StoryMetaData storyData;
 
     private int skipsCount = 0;
+    private readonly float videoTotalLength = 175.0f;
+    
 
     // Use this for initialization
     void Start () {
         storyData = new StoryMetaData(SessionManager.Instance.nombre_jugador, System.Math.Round(player.clip.length).ToString());
-        panel.SetActive(false);
+        SetAlpha(0.0f);
+        SetButtonsInteractable(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isPaused)
+
+        if (player.time >= (videoTotalLength - 5.0))
         {
-            if (player.time >= 170.0f)
+            panel.SetActive(false);
+            if (skipsCount == 0)
             {
-                replayButton.interactable = false;
-                skipButton.interactable = false;
-                if (skipsCount == 0)
-                {
-                    storyData.estado = "completado";
-                }else storyData.estado = "abandonado";
-                panel.SetActive(true);
-                if (player.time >= 175.0f)
-                {
-                    SendJSONAndGoToScene("EntornoNaturalHub");
-                }
-            }
-            else
+                storyData.estado = "completado";
+            }else storyData.estado = "abandonado";
+
+            if (player.time >= videoTotalLength)
             {
-                replayButton.interactable = true;
-                skipButton.interactable = true;
-                if (Input.GetMouseButtonUp(0))
-                {
-                    if (panel.activeSelf == false)
-                    {
-                        panel.SetActive(true);
-                    }
-                    else
-                    {
-                        panel.SetActive(false);
-                    }
-                }
+                SendJSONAndGoToScene("EntornoNaturalHub");
             }
+        }
             
-        }
-        else
-        {
-            panel.SetActive(true);
-        }
 
     }
 
-    //public void Pause()
-    //{
-    //    AudioManager.Instance.PlaySFX("TinyButtonPush");
-    //    player.Pause();
-    //    pauseButton.SetActive(false);
-    //    playButton.SetActive(true);
-    //    isPaused = true;
-    //}
 
-    //public void UnPause()
-    //{
-    //    AudioManager.Instance.PlaySFX("TinyButtonPush");
-    //    player.Play();
-    //    pauseButton.SetActive(true);
-    //    playButton.SetActive(false);
-    //    isPaused = false;
-    //}
-
-    public void Avanza()
+    public void Retroceder()
     {
+        AudioManager.Instance.PlaySFX("TinyButtonPush");
+        if (player.time <= 15.0f)
+        {
+            player.time = 0.0;
+        }
+        else
+        {
+            player.time = player.time - 15.0f;
+        }
+
+        skipsCount--;
+        if (skipsCount < 0) {
+            skipsCount = 0;
+        }
+
+        Debug.Log("SKIPSCOUNT = " + skipsCount);
+        
+    }
+
+
+    public void Avanzar()
+    {
+        AudioManager.Instance.PlaySFX("TinyButtonPush");
         player.time = player.time + 15.0f;
         skipsCount++;
+
+        Debug.Log("SKIPSCOUNT = " + skipsCount);
     }
 
     public void SendJSONAndGoToScene(string sceneName)
@@ -95,4 +82,34 @@ public class StoryController : VideoController {
         base.StopAndGoToScene(sceneName);
     }
 
+    public float GetAlpha()
+    {
+        return panel.GetComponent<CanvasGroup>().alpha;
+    }
+
+    public void SetAlpha(float alpha)
+    {
+        panel.GetComponent<CanvasGroup>().alpha = alpha;
+    }
+
+    public void TooglePanel()
+    {
+        if (Mathf.Approximately(GetAlpha(), 0.0f))
+        {
+            SetAlpha(1.0f);
+            SetButtonsInteractable(true);
+        }
+        else
+        {
+            SetAlpha(0.0f);
+            SetButtonsInteractable(false);
+        }
+    }
+
+    private void SetButtonsInteractable(bool v)
+    {
+        backButton.gameObject.SetActive(v);
+        replayButton.gameObject.SetActive(v);
+        videoControlsPanel.SetActive(v);
+    }
 }

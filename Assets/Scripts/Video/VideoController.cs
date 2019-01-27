@@ -35,6 +35,7 @@ public class VideoController : MonoBehaviour {
 
     public void StopAndGoToScene(string scene)
     {
+        AudioManager.Instance.PlaySFX("TinyButtonPush");
         GameStateManager.Instance.LoadScene(scene);
     }
 
