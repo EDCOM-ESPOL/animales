@@ -13,7 +13,7 @@ public abstract class ActivityController : MonoBehaviour {
     public LevelMetaData levelData;
 
     protected string activityName;
-    protected readonly int numberOfSubLevels = 10;
+    protected readonly int numberOfSubLevels = 5;
     protected int score = 0;
     protected int errors = 0;
     protected int activity3Flag = 0;

@@ -14,6 +14,6 @@ MonoBehaviour:
   nombre: Polilla
   sprite: {fileID: 21300000, guid: 2c208d2ad0eaf8b40a6267d8992a42bc, type: 3}
   tipo: 0
-  utilidad: 1
+  utilidad: 3
   cubiertos: 3
   movimiento: 2

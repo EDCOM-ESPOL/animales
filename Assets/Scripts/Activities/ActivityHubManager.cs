@@ -37,6 +37,8 @@ public class ActivityHubManager : MonoBehaviour {
         GameStateManager.Instance.ReadLocalFile();
         StartCoroutine(GameStateManager.Instance.SyncJsonData());
         AudioManager.Instance.PlaySFX("TinyButtonPush");
-        Application.Quit();
+        GameStateManager.Instance.creditsScreenCaller = GameStateManager.Instance.getCurrentSceneName();
+        GameStateManager.Instance.LoadScene("Credits");
+        //Application.Quit();
     }
 }

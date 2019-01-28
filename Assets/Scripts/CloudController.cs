@@ -5,7 +5,6 @@ using UnityEngine;
 public class CloudController : MonoBehaviour {
 
     public float cloudSpeed = 0.5f;
-    
 
 	// Use this for initialization
 	void Start () {

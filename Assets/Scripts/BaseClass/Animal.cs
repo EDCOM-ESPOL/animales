@@ -11,7 +11,7 @@ public class Animal : ScriptableObject{
     public enum type { Land, Sea };
     public type tipo;
 
-    public enum utility {Domestic,Harmful,Wild};
+    public enum utility {Domestic,Harmful,Wild, Other };
     public utility utilidad;
 
     public enum skinCover { Feather, Fur, Scale, Other };

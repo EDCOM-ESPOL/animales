@@ -59,6 +59,10 @@ public class ButtonClickNavigator : MonoBehaviour {
         //    StartCoroutine(PlayLoliStartAudio());
         //}else
 
+        if (sceneName == "Credits")
+        {
+            GameStateManager.Instance.creditsScreenCaller = GameStateManager.Instance.getCurrentSceneName();
+        }
         GameStateManager.Instance.LoadScene(sceneName);
 
 

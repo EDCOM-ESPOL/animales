@@ -14,6 +14,6 @@ MonoBehaviour:
   nombre: Perezoso
   sprite: {fileID: 21300000, guid: 577e134d7241f59479108f57b3a1b842, type: 3}
   tipo: 0
-  utilidad: 2
+  utilidad: 3
   cubiertos: 1
   movimiento: 0

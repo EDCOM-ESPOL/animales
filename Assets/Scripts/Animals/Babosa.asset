@@ -14,6 +14,6 @@ MonoBehaviour:
   nombre: Babosa
   sprite: {fileID: 21300000, guid: 80648129f63530e4c94947c8694acef1, type: 3}
   tipo: 0
-  utilidad: 1
+  utilidad: 3
   cubiertos: 3
   movimiento: 1

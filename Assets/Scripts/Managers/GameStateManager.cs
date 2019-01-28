@@ -19,12 +19,13 @@ public class GameStateManager : UnitySingleton<GameStateManager>
     private List<string> jsonList = new List<string>();
     private bool IsConnectedToServer = false;
 
+    public string creditsScreenCaller;
 
 
     // Use this for initialization
     IEnumerator Start()
     {
-        netService = false;
+        netService = true;
 
         if (netService)
         {
@@ -51,6 +52,7 @@ public class GameStateManager : UnitySingleton<GameStateManager>
         AudioManager.Instance.StopAllVoices();
         SceneManager.LoadScene(sceneName);
     }
+
 
     //public void GoBack()
     //{

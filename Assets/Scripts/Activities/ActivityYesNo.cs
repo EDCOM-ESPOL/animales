@@ -107,9 +107,9 @@ public class ActivityYesNo : MonoBehaviour {
         Button[] buttons = FindObjectsOfType<Button>();
         foreach (Button button in buttons)
         {
-            if(button.name=="BackButton" || button.name=="OrderButton" || button.name=="YesButton" || button.name=="NoButton"){
+            //if(button.name=="BackButton" || button.name=="OrderButton" || button.name=="YesButton" || button.name=="NoButton"){
             button.interactable = true;
-            }
+            //}
            
             //print(button);
             

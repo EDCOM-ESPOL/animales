@@ -14,6 +14,6 @@ MonoBehaviour:
   nombre: Guacamayo
   sprite: {fileID: 21300000, guid: 022e8af38f2651f4cad438d6b20fada6, type: 3}
   tipo: 0
-  utilidad: 2
+  utilidad: 3
   cubiertos: 0
   movimiento: 2
