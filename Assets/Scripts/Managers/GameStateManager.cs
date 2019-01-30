@@ -1,4 +1,5 @@
 ﻿using DigitalRuby.SoundManagerNamespace;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,6 @@ public class GameStateManager : UnitySingleton<GameStateManager>
     public bool netService;
 
     private const string SERVER_URL = "http://midiapi.espol.edu.ec";
-    //private const string SERVER_URL = "http://hidden-wildwood-12729.herokuapp.com";
     private const string API_URL = SERVER_URL + "/api/v1/entrance/AlmacenarDatosController";
 
     private List<string> jsonList = new List<string>();
@@ -21,6 +21,10 @@ public class GameStateManager : UnitySingleton<GameStateManager>
 
     public string creditsScreenCaller;
 
+    private string settingsFileName = "/globalSettings.dat";
+    private string gameDataFileName = "/gamesave.dat";
+
+    private GlobalSettings globalSettings;
 
     // Use this for initialization
     IEnumerator Start()
@@ -35,15 +39,66 @@ public class GameStateManager : UnitySingleton<GameStateManager>
             ReadLocalFile();
             StartCoroutine(SyncJsonData());
         }
+
+        LoadSettings();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadSettings()
     {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    GoBack();
-        //}
+        if (File.Exists(Application.persistentDataPath + settingsFileName))
+        {
+            try
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + settingsFileName, FileMode.Open);
+                GlobalSettings data = (GlobalSettings)bf.Deserialize(file);
+                file.Close();
+
+                this.globalSettings = new GlobalSettings(data.school, data.room);
+            }
+            catch (Exception)
+            {
+                Debug.Log("Configuraciones: ERROR al leer el archivo");
+                SaveGlobalSettings(new GlobalSettings());
+                throw;
+            }
+
+
+        }
+        else
+        {
+            Debug.Log("Configuraciones: No existe archivo");
+            Debug.Log("Configuraciones: Creando Archivo");
+            SaveGlobalSettings(new GlobalSettings());
+
+        }
+    }
+
+
+    public void SaveGlobalSettings(GlobalSettings settings)
+    {
+        this.globalSettings = settings;
+
+        try
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + settingsFileName);
+
+            bf.Serialize(file, settings);
+            file.Close();
+            Debug.Log("Configuraciones: Guardado con éxito");
+        }
+        catch (Exception)
+        {
+            Debug.Log("Configuraciones: ERROR al guardar el archivo");
+            throw;
+        }
+        
+    }
+
+    public GlobalSettings GetGlobalSettings()
+    {
+        return globalSettings;
     }
 
     public void LoadScene(string sceneName)
@@ -54,18 +109,6 @@ public class GameStateManager : UnitySingleton<GameStateManager>
     }
 
 
-    //public void GoBack()
-    //{
-    //    int index = getCurrentSceneIndex();
-    //    if (index < 1)
-    //    {
-    //        Application.Quit();
-    //    }
-    //    else
-    //    {
-    //        SceneManager.LoadScene(index - 1);
-    //    }
-    //}
 
     public int getCurrentSceneIndex()
     {
@@ -194,76 +237,23 @@ public class GameStateManager : UnitySingleton<GameStateManager>
         }
     }
 
-    //bool UploadItem(string item)
-    //{
-    //    Dictionary<string, string> postHeader = new Dictionary<string, string>
-    //            {
-    //                { "Content-Type", "application/json" }
-    //            };
-    //    byte[] body = Encoding.UTF8.GetBytes(item);
-    //    WWW www = new WWW(API_URL, body, postHeader);
-    //    yield return StartCoroutine("StartUpload", www);
-
-    //    if (www.error != null)
-    //    {
-    //        Debug.Log(www.error);
-    //        return false;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Data Submitted");
-    //        return true;
-    //    }
-
-    //}
-
 
     IEnumerator StartUpload(WWW www)
     {
         yield return www;
-        //if (www.error != null)
-        //{
-        //    Debug.Log(www.error);
-        //}
-        //else
-        //{
-        //    Debug.Log("Data Submitted");
-        //}
-
-
-        // convert json string to byte
-        //var formData = System.Text.Encoding.UTF8.GetBytes(json);
-
-        //www = new WWW(API_URL, formData, postHeader);
-        //StartCoroutine(WaitForRequest(www));
-        //return www;
-
-
-
-        //UnityWebRequest www = UnityWebRequest.Put(API_URL, json);
-        //www.SetRequestHeader("Content-Type", "application/json");
-        //yield return www.SendWebRequest();
-
-        //if (www.isNetworkError || www.isHttpError)
-        //{
-        //    Debug.Log(www.error);
-        //}
-        //else
-        //{
-        //    Debug.Log("Upload complete!");
-        //}
+        
     }
 
 
     public void ReadLocalFile()
     {
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        if (File.Exists(Application.persistentDataPath + gameDataFileName))
         {
             Debug.Log("SAVE DATA FOUND");
             try
             {
                 BinaryFormatter bf = new BinaryFormatter();
-                FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+                FileStream file = File.Open(Application.persistentDataPath + gameDataFileName, FileMode.Open);
                 jsonList = (List<string>)bf.Deserialize(file);
                 file.Close();
             }
@@ -286,7 +276,7 @@ public class GameStateManager : UnitySingleton<GameStateManager>
         try
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+            FileStream file = File.Create(Application.persistentDataPath + gameDataFileName);
             bf.Serialize(file, jsonList);
             file.Close();
 
@@ -302,12 +292,12 @@ public class GameStateManager : UnitySingleton<GameStateManager>
 
     public void DeleteSaveFile()
     {
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        if (File.Exists(Application.persistentDataPath + gameDataFileName))
         {
             Debug.Log("SAVE DATA FOUND");
             try
             {
-                File.Delete(Application.persistentDataPath + "/gamesave.save");
+                File.Delete(Application.persistentDataPath + gameDataFileName);
                 Debug.Log("SAVE DATA DELETED");
             }
             catch (System.Exception)
