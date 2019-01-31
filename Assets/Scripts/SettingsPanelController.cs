@@ -30,7 +30,7 @@ public class SettingsPanelController : MonoBehaviour {
 
         clickCount++;
 
-        if (clickCount > 4)
+        if (clickCount > 9)
         {
             AudioManager.Instance.PlaySFX("TinyButtonPush");
 
